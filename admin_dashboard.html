@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG WhatsApp Bot - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">RPG WhatsApp Bot</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#players">Players</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#battles">Battles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#deities">Deities</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="/admin/logout" class="btn btn-outline-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success">
+                    <h4 class="alert-heading">Welcome, Game Master!</h4>
+                    <p>From this dashboard, you can manage players, view game state, and perform admin actions.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card bg-primary text-white mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Players</h5>
+                        <h2 class="card-text">{{ stats.player_count }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-success text-white mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Battles</h5>
+                        <h2 class="card-text">{{ stats.active_battles }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-info text-white mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Deity Count</h5>
+                        <h2 class="card-text">{{ stats.deity_count }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Players Section -->
+        <div class="card mb-4" id="players">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Players</h5>
+                <button type="button" class="btn btn-sm btn-primary" id="refreshPlayers">
+                    <i data-feather="refresh-cw"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Race</th>
+                                <th>Class</th>
+                                <th>Element</th>
+                                <th>Level</th>
+                                <th>Rank</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="playerTableBody">
+                            <!-- Players will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Battles Section -->
+        <div class="card mb-4" id="battles">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Active Battles</h5>
+                <button type="button" class="btn btn-sm btn-primary" id="refreshBattles">
+                    <i data-feather="refresh-cw"></i> Refresh
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Players</th>
+                                <th>Zone</th>
+                                <th>Current Turn</th>
+                                <th>Rounds</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="battleTableBody">
+                            <!-- Battles will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deities Section -->
+        <div class="card mb-4" id="deities">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Deities</h5>
+                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#createDeityModal">
+                    <i data-feather="plus"></i> Create Deity
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Player</th>
+                                <th>Chosen Count</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deityTableBody">
+                            <!-- Deities will be populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Deity Modal -->
+    <div class="modal fade" id="createDeityModal" tabindex="-1" aria-labelledby="createDeityModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createDeityModalLabel">Create Deity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="createDeityForm">
+                        <div class="mb-3">
+                            <label for="deityName" class="form-label">Deity Name</label>
+                            <input type="text" class="form-control" id="deityName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="playerSelect" class="form-label">Select Player</label>
+                            <select class="form-select" id="playerSelect" required>
+                                <option value="">-- Select Player --</option>
+                                <!-- Players will be populated dynamically -->
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="createDeityBtn">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Player Modal -->
+    <div class="modal fade" id="viewPlayerModal" tabindex="-1" aria-labelledby="viewPlayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewPlayerModalLabel">Player Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Basic Info</h6>
+                            <dl class="row">
+                                <dt class="col-sm-4">Username</dt>
+                                <dd class="col-sm-8" id="playerUsername"></dd>
+                                
+                                <dt class="col-sm-4">Race</dt>
+                                <dd class="col-sm-8" id="playerRace"></dd>
+                                
+                                <dt class="col-sm-4">Class</dt>
+                                <dd class="col-sm-8" id="playerClass"></dd>
+                                
+                                <dt class="col-sm-4">Element</dt>
+                                <dd class="col-sm-8" id="playerElement"></dd>
+                                
+                                <dt class="col-sm-4">Level</dt>
+                                <dd class="col-sm-8" id="playerLevel"></dd>
+                                
+                                <dt class="col-sm-4">Rank</dt>
+                                <dd class="col-sm-8" id="playerRank"></dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Stats</h6>
+                            <dl class="row">
+                                <dt class="col-sm-4">XP</dt>
+                                <dd class="col-sm-8" id="playerXP"></dd>
+                                
+                                <dt class="col-sm-4">Gold</dt>
+                                <dd class="col-sm-8" id="playerGold"></dd>
+                                
+                                <dt class="col-sm-4">Karma</dt>
+                                <dd class="col-sm-8" id="playerKarma"></dd>
+                                
+                                <dt class="col-sm-4">Strength</dt>
+                                <dd class="col-sm-8" id="playerStrength"></dd>
+                                
+                                <dt class="col-sm-4">Agility</dt>
+                                <dd class="col-sm-8" id="playerAgility"></dd>
+                                
+                                <dt class="col-sm-4">Intelligence</dt>
+                                <dd class="col-sm-8" id="playerIntelligence"></dd>
+                                
+                                <dt class="col-sm-4">Endurance</dt>
+                                <dd class="col-sm-8" id="playerEndurance"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6>Inventory</h6>
+                            <ul class="list-group" id="playerInventory">
+                                <!-- Inventory items will be populated dynamically -->
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Skills</h6>
+                            <ul class="list-group" id="playerSkills">
+                                <!-- Skills will be populated dynamically -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" id="editPlayerBtn">Edit Player</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>

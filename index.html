@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG WhatsApp Bot - Admin</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header text-center bg-dark text-light">
+                        <h2>RPG WhatsApp Bot</h2>
+                        <p class="mb-0">Game Master Login</p>
+                    </div>
+                    <div class="card-body">
+                        <!-- Flash messages -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        
+                        <form action="/admin/login" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer bg-dark text-light text-center">
+                        <p class="mb-0">Access the game master dashboard to manage your RPG WhatsApp Bot</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                        <h3>About RPG WhatsApp Bot</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>How to Play</h4>
+                                <p>
+                                    Our RPG WhatsApp bot allows players to create characters, battle monsters, complete quests, and interact with other players through WhatsApp.
+                                </p>
+                                <h5>Getting Started</h5>
+                                <ol>
+                                    <li>Add our WhatsApp number to your contacts</li>
+                                    <li>Start a conversation with "help" to see available commands</li>
+                                    <li>Create your character with "register [username] [race] [class] [element]"</li>
+                                    <li>Begin your adventure!</li>
+                                </ol>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Features</h4>
+                                <ul>
+                                    <li><strong>Character Creation:</strong> Choose from 5 races, 14 classes, and 7 elements</li>
+                                    <li><strong>Combat System:</strong> Battle other players in duels or face monsters</li>
+                                    <li><strong>Progression:</strong> Level up and advance through 9 ranks from G to SS</li>
+                                    <li><strong>Economy:</strong> Earn gold, buy items, and manage inventory</li>
+                                    <li><strong>Exploration:</strong> Visit different zones with unique effects</li>
+                                    <li><strong>Quests:</strong> Complete missions for rewards</li>
+                                    <li><strong>Deity System:</strong> Special powers for admins and promoted players</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

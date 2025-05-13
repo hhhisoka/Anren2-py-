@@ -1,0 +1,131 @@
+/* Custom styles for RPG WhatsApp Bot */
+
+/* Card hover effect */
+.card:hover {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Custom backgrounds for different character classes */
+.bg-warrior {
+    background: linear-gradient(45deg, #8B0000, #A52A2A);
+}
+
+.bg-mage {
+    background: linear-gradient(45deg, #483D8B, #9370DB);
+}
+
+.bg-archer {
+    background: linear-gradient(45deg, #006400, #228B22);
+}
+
+.bg-paladin {
+    background: linear-gradient(45deg, #4682B4, #B0C4DE);
+}
+
+.bg-rogue {
+    background: linear-gradient(45deg, #2F4F4F, #708090);
+}
+
+/* Rank badges */
+.rank-badge {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.rank-G { background-color: #6c757d; color: white; }
+.rank-F { background-color: #28a745; color: white; }
+.rank-E { background-color: #17a2b8; color: white; }
+.rank-D { background-color: #007bff; color: white; }
+.rank-C { background-color: #6f42c1; color: white; }
+.rank-B { background-color: #fd7e14; color: white; }
+.rank-A { background-color: #ffc107; color: black; }
+.rank-S { background-color: #dc3545; color: white; }
+.rank-SS { background-color: #f8f9fa; color: black; box-shadow: 0 0 10px gold; }
+
+/* Element icons */
+.element-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.element-Fire { background-color: #dc3545; color: white; }
+.element-Water { background-color: #007bff; color: white; }
+.element-Plant { background-color: #28a745; color: white; }
+.element-Earth { background-color: #6c757d; color: white; }
+.element-Wind { background-color: #17a2b8; color: white; }
+.element-Darkness { background-color: #343a40; color: white; }
+.element-Light { background-color: #f8f9fa; color: #343a40; }
+
+/* Dashboard stats */
+.stats-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Battle log styling */
+.battle-log {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #343a40;
+}
+
+.battle-log-entry {
+    padding: 5px 0;
+    border-bottom: 1px dashed #495057;
+}
+
+.battle-log-entry:last-child {
+    border-bottom: none;
+}
+
+/* Custom button styling */
+.btn-deity {
+    background: linear-gradient(45deg, #ffd700, #ff8c00);
+    border: none;
+    color: #343a40;
+    font-weight: bold;
+}
+
+.btn-deity:hover {
+    background: linear-gradient(45deg, #ff8c00, #ffd700);
+    color: #343a40;
+}
+
+/* Admin dashboard improvements */
+.admin-sidebar {
+    background-color: #343a40;
+    min-height: calc(100vh - 56px);
+    padding-top: 20px;
+}
+
+.admin-content {
+    padding: 20px;
+}
+
+/* Responsive card grid */
+@media (max-width: 768px) {
+    .stats-card {
+        margin-bottom: 15px;
+    }
+}
